@@ -6,7 +6,7 @@ volumes:
     temp: {}
 
 steps:
-  - name: build_prod
+  - name: build
     image: plugins/docker
     volumes:
       - name: cache

@@ -94,7 +94,8 @@ socket.on('header', function (data) {
     header.innerHTML = data
     header.style.display = 'block'
     // header is 19px and footer is 19px, recaculate new terminal-container and resize
-    terminalContainer.style.height = 'calc(100% - 38px)'
+    // Modified by ocanty to remove header and footer
+    terminalContainer.style.height = 'calc(100%)'
     resizeScreen()
   }
 })

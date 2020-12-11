@@ -1,3 +1,6 @@
+.xterm-viewport {
+  overflow-y: hidden !important;
+}
 body, html  {
   font-family: helvetica, sans-serif, arial;
   font-size: 1em;
@@ -26,10 +29,10 @@ body, html  {
 }
 #terminal-container {
     display: block;
-    width: calc(100% - 1 px);
+    width: calc(100% - 4px);
     margin: 0 auto;
     padding: 2px;
-    height: calc(100% - 1 px);
+    height: calc(100% - 4px);
 }
 #terminal-container .terminal {
     background-color: #000000;

@@ -140,6 +140,11 @@ app.get('/ssh/reauth', function (req, res, next) {
 
 // eslint-disable-next-line complexity
 app.get('/ssh/host/:host?', function (req, res, next) {
+  if (typeof req.session.ssh != "undefined") {
+    res.status(401).send('<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=' + r + '"></head><body bgcolor="#000"></body></html>')
+    return;
+  }
+  
   res.sendFile(path.join(path.join(publicPath, 'client.htm')))
   // capture, assign, and validated variables
   req.session.ssh = {

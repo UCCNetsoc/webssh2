@@ -104,7 +104,7 @@ module.exports = function socket (socket) {
         err = { message: reason }
         SSHerror('CLIENT SOCKET DISCONNECT', err)
         conn.end()
-        // socket.request.session.destroy()
+        socket.request.session.destroy()
       })
       socket.on('error', function socketOnError (err) {
         SSHerror('SOCKET ERROR', err)

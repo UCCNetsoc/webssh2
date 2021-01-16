@@ -122,16 +122,28 @@ module.exports = function socket (socket) {
     })
   })
 
-  conn.on('end', function connOnEnd (err) { SSHerror('CONN END BY HOST', err) })
+  conn.on('end', function connOnEnd (err) { 
+    SSHerror('CONN END BY HOST', err)
+    socket.request.session.destroy()
+    socket.disconnect(true)
+  })
+  
   conn.on('close', function connOnClose (err) { 
     SSHerror('CONN CLOSE', err)
     socket.request.session.destroy()
   })
-  conn.on('error', function connOnError (err) { SSHerror('CONN ERROR', err) })
+  
+  conn.on('error', function connOnError (err) { 
+    SSHerror('CONN ERROR', err)
+    socket.request.session.destroy()
+    socket.disconnect(true)
+  })
+  
   conn.on('keyboard-interactive', function connOnKeyboardInteractive (name, instructions, instructionsLang, prompts, finish) {
     debugWebSSH2('conn.on(\'keyboard-interactive\')')
     finish([socket.request.session.userpassword])
   })
+  
   if (socket.request.session.username && (socket.request.session.userpassword || socket.request.session.privatekey) && socket.request.session.ssh) {
     // console.log('hostkeys: ' + hostkeys[0].[0])
     conn.connect({

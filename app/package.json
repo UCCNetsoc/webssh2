@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "basic-auth": "~2.0.1",
+    "body-parser": "^1.19.0",
     "cidr-matcher": "2.1.1",
     "colors": "~1.4.0",
     "debug": "^4.1.1",

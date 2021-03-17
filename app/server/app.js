@@ -4,12 +4,12 @@
 
 var path = require('path')
 var fs = require('fs')
-var nodeRoot = path.dirname(require.main.filename)
-var configPath = path.join(nodeRoot, 'config.json')
-var publicPath = path.join(nodeRoot, 'client', 'public')
-console.log('WebSSH2 service reading config from: ' + configPath)
+const paths = require('./paths')
+console.log('WebSSH2 service reading config from: ' + paths.configPath)
 var express = require('express')
 var logger = require('morgan')
+
+const bodyParser = require('body-parser')
 
 // sane defaults if config.json or parts are missing
 let config = {
@@ -90,9 +90,9 @@ let config = {
 // test if config.json exists, if not provide error message but try to run
 // anyway
 try {
-  if (fs.existsSync(configPath)) {
-    console.log('ephemeral_auth service reading config from: ' + configPath)
-    config = require('read-config-ng')(configPath)
+  if (fs.existsSync(paths.configPath)) {
+    console.log('ephemeral_auth service reading config from: ' + paths.configPath)
+    config = require('read-config-ng')(paths.configPath)
   } else {
     console.error('\n\nERROR: Missing config.json for webssh. Current config: ' + JSON.stringify(config))
     console.error('\n  See config.json.sample for details\n\n')
@@ -121,32 +121,33 @@ var expressOptions = require('./expressOptions')
 var favicon = require('serve-favicon')
 
 // express
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(safeShutdownGuard)
 app.use(session)
-app.use(myutil.basicAuth)
 if (config.accesslog) app.use(logger('common'))
 app.disable('x-powered-by')
 
 // static files
-app.use('/ssh', express.static(publicPath, expressOptions))
+app.use('/ssh', express.static(paths.publicPath, expressOptions))
 
 // favicon from root if being pre-fetched by browser to prevent a 404
-app.use(favicon(path.join(publicPath,'favicon.ico')));
+app.use(favicon(path.join(paths.publicPath,'favicon.ico')));
 
-app.get('/ssh/reauth', function (req, res, next) {
-  var r = req.headers.referer || '/'
+app.use('/ssh/reauth', function (req, res, next) {
+  const r = req.headers.referer || '/'
   res.status(401).send('<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=' + r + '"></head><body bgcolor="#000"></body></html>')
 })
 
+app.use(myutil.basicAuth)
 // eslint-disable-next-line complexity
-app.get('/ssh/host/:host?', function (req, res, next) {
+app.use('/ssh/host/:host?', function (req, res, next) {
   if (typeof req.session.ssh != "undefined") {
     req.session.destroy()
     res.status(401).send('<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0"></head><body bgcolor="#000"></body></html>')
     return;
   }
 
-  res.sendFile(path.join(path.join(publicPath, 'client.htm')))
+  res.sendFile(path.join(path.join(paths.publicPath, 'client.htm')))
   // capture, assign, and validated variables
   req.session.ssh = {
     host: config.ssh.host || (validator.isIP(req.params.host + '') && req.params.host) ||

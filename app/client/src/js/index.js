@@ -12,6 +12,7 @@ dom.watch()
 
 require('xterm/css/xterm.css')
 require('../css/style.css')
+require('../css/login.css')
 
 /* global Blob, logBtn, credentialsBtn, reauthBtn, downloadLogBtn */
 var sessionLogEnable = false

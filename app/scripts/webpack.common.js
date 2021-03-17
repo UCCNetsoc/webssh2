@@ -10,6 +10,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
+      './client/src/login.htm',
       './client/src/client.htm',
       './client/src/favicon.ico'
     ]),

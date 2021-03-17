@@ -7,6 +7,9 @@ require('colors') // allow for color property extensions in log messages
 var debug = require('debug')('WebSSH2')
 var Auth = require('basic-auth')
 
+const paths = require('./paths');
+var path = require('path')
+
 const defaultCredentials = { username: null, password: null, privatekey: null }
 
 exports.setDefaultCredentials = function (username, password, privatekey) {
@@ -16,12 +19,13 @@ exports.setDefaultCredentials = function (username, password, privatekey) {
 }
 
 exports.basicAuth = function basicAuth (req, res, next) {
-  var myAuth = Auth(req)
-  if (myAuth && myAuth.pass !== '') {
-    req.session.username = myAuth.name
-    req.session.userpassword = myAuth.pass
-    debug('myAuth.name: ' + myAuth.name.yellow.bold.underline +
-      ' and password ' + ((myAuth.pass) ? 'exists'.yellow.bold.underline
+  const body = req.body;
+  debug(req.body);
+  if (body.username && body.password) {
+    req.session.username = body.username
+    req.session.userpassword = body.password
+    debug('myAuth.name: ' + body.username.yellow.bold.underline +
+      ' and password ' + ((body.password) ? 'exists'.yellow.bold.underline
       : 'is blank'.underline.red.bold))
   } else {
     req.session.username = defaultCredentials.username
@@ -31,8 +35,9 @@ exports.basicAuth = function basicAuth (req, res, next) {
   if ((!req.session.userpassword) && (!req.session.privatekey)) {
     res.statusCode = 401
     debug('basicAuth credential request (401)')
-    res.setHeader('WWW-Authenticate', 'Basic realm="WebSSH"')
-    res.end('Username and password required for web SSH service.')
+    // res.setHeader('WWW-Authenticate', 'Basic realm="WebSSH"')
+    // res.end('Username and password required for web SSH service.')
+    res.sendFile(path.join(path.join(paths.publicPath, 'login.htm')))
     return
   }
   next()

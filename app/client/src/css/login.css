@@ -1,0 +1,21 @@
+main.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+form input {
+  margin-bottom: 10px;
+}
+
+form input[type="submit"] {
+  width: 50%;
+  align-self: center;
+}

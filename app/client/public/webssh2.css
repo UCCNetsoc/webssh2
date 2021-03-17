@@ -169,6 +169,9 @@
 .xterm-underline {
     text-decoration: underline;
 }
+.xterm-viewport {
+  overflow-y: hidden !important;
+}
 body, html  {
   font-family: helvetica, sans-serif, arial;
   font-size: 1em;
@@ -197,16 +200,15 @@ body, html  {
 }
 #terminal-container {
     display: block;
-    width: calc(100% - 1 px);
+    width: calc(100% - 4px);
     margin: 0 auto;
     padding: 2px;
-    height: calc(100% - 19px);
+    height: calc(100% - 4px);
 }
 #terminal-container .terminal {
     background-color: #000000;
     color: #fafafa;
-    padding: 2px;
-    height: calc(100% - 19px);
+    height: calc(100%);
 }
 #terminal-container .terminal:focus .terminal-cursor {
     background-color: #fafafa;
@@ -215,16 +217,13 @@ body, html  {
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 0%;
     background-color: rgb(50, 50, 50);
-    border-color: white;
-    border-style: solid none none none;
-    border-width: 1px;
     z-index: 99;
-    height: 19px;
+    height: 0px;
 }
 #footer {
-    display: inline-block;
+    display: none;
     color: rgb(240, 240, 240);
     background-color: rgb(50, 50, 50);
     padding-left: 5px;
@@ -235,16 +234,18 @@ body, html  {
     text-align: left;
 }
 #status {
-    display: inline-block;
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
     color: rgb(240, 240, 240);
     background-color: rgb(50, 50, 50);
     padding-left: 10px;
     padding-right: 10px;
-    border-color: white;
-    border-style: none solid none solid;
-    border-width: 1px;
     text-align: left;
     z-index: 100;
+    font-family: monospace;
+
 }
 #countdown {
     display: none;
@@ -271,7 +272,7 @@ body, html  {
     }
 }
 #menu {
-    display: inline-block;
+    display: none;
     font-size: 16px;
     color: rgb(255, 255, 255);
     padding-left: 10px;
@@ -300,7 +301,6 @@ body, html  {
 }
 .dropup-content a {
     color: #777;
-    padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
@@ -316,3 +316,25 @@ body, html  {
 .dropup:hover .dropbtn {
     background-color: #3e8e41;
 }
+main.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+form input {
+  margin-bottom: 10px;
+}
+
+form input[type="submit"] {
+  width: 50%;
+  align-self: center;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ3ZWJzc2gyLmNzcyIsInNvdXJjZVJvb3QiOiIifQ==*/

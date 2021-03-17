@@ -3,19 +3,25 @@
 <head>
   <title>WebSSH2</title>
   <style>
-    html, body {background-color: #000;height: 100%;margin: 0;}.dropup-content {display: none;}
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+    html, body {
+      background-color: rgb(33, 33, 33) !important;
+      height: 100%;
+      margin: 0;
+    }
   </style>
   <link rel="stylesheet" href="/ssh/webssh2.css" />
   <link rel="icon" href="/ssh/favicon.ico" />
 </head>
 <body>
   <main class="login">
+    <h1>WebSSH Login</h1>
     <form method="POST">
-      <label for="username">Username:</label>
-      <input name="username" type="text" placeholder="username" />
-      <label for="password">Password:</label>
-      <input name="password" type="password" placeholder="password"/>
-      <input type="submit" value="Submit" />
+      <label for="username">Username</label>
+      <input name="username" type="text" />
+      <label for="password">Password</label>
+      <input name="password" type="password"/>
+      <input type="submit" value="Connect" />
     </form>
   </main>
 </body>

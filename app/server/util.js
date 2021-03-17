@@ -20,7 +20,6 @@ exports.setDefaultCredentials = function (username, password, privatekey) {
 
 exports.basicAuth = function basicAuth (req, res, next) {
   const body = req.body;
-  debug(req.body);
   if (body.username && body.password) {
     req.session.username = body.username
     req.session.userpassword = body.password

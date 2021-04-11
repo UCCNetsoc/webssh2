@@ -12,7 +12,8 @@ module.exports = {
     new CopyWebpackPlugin([
       './client/src/login.htm',
       './client/src/client.htm',
-      './client/src/favicon.ico'
+      './client/src/favicon.ico',
+      './client/src/cloud.svg',
     ]),
     new ExtractTextPlugin('[name].css')
   ],

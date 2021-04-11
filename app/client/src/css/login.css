@@ -1,13 +1,25 @@
 main.login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr min-content 1fr;
+  justify-items: center;
   align-items: center;
   height: 100%;
 
   font-size: 14px;
   font-weight: 400;
   font-family: 'Roboto', sans-serif !important;
+}
+
+form h1 {
+  text-align: center;
+}
+
+.logo {
+  width: 90%;
+  max-width: 256px;
+  height: auto;
+  align-self: end;
 }
 
 form {
